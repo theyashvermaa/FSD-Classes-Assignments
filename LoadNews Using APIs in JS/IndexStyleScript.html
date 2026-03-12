@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use APIs using JS</title>
+
+    <style>
+        li {
+            list-style: none;
+            margin-bottom: 20px;
+            border-bottom: 2px solid gray;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>TECH NEWS</h1>
+    <hr>
+    <button id="btn">Show News Headlines</button>
+
+    <div id="content">
+
+    </div>
+</body>
+
+<script>
+    const btn = document.getElementById("btn");
+
+    btn.addEventListener("click", runurl);
+
+    // loads news when page opens
+    windows.onload = runurl;
+
+    async function runurl() {
+        const url = "https://hn.algolia.com/api/v1/search?query=popular";
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        showNews(data.hits);
+    }
+
+    function showNews(array) {
+        //First we picked "div" from html
+        const news = document.getElementById("content");
+
+        // Clearing the previous news
+        news.innerHTML = "";
+
+        // Traversing each list item of array
+        array.forEach(element => {
+            //create new list item in div container: <li></li>
+            const LI = document.createElement("li");
+
+            // create new element for heading tag: <h3></h3>
+            const head = document.createElement("h3");
+            // add name to be heading
+            head.textContent = element.title;
+
+
+            // create anchor tag in div container: <a></a>
+            const link = document.createElement("a");
+            // add link(url) in href of anchor tag
+            link.href = element.url;
+            // add name to be displayed to click on link
+            link.textContent = "Read";
+            // open link in new tab i.e "target" attribute of anchor tag is blank
+            link.target = "_blank";
+
+
+            // place anchor tag "a" and heading "h3" inside the list item "li": 
+            // <li> 
+            // <h3>ABCD</h3> 
+            // <a>read</a> 
+            // </li>
+            LI.appendChild(head);
+            LI.appendChild(link);
+
+
+            // finally add the list item to div container (news)
+            news.appendChild(LI);
+        });
+    }
+</script>
+
+</html>
