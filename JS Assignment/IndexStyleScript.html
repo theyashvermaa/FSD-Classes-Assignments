@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Assignment</title>
+</head>
+
+<body>
+    <h1>JS ASSIGNMENT</h1>
+    <h2>Problem Statement: </h2>
+    <p>Given 10 student objects (name, marks, subject):
+        use array methods ONLY (no loops) to "filter pass/fail", "compute average", "find topper", "group by subject".
+        Push to GitHub.</p>
+
+</body>
+<script>
+    const students = [
+        { name: "Yash", marks: 99, subject: "Maths" },
+        { name: "Ayush", marks: 67, subject: "English" },
+        { name: "Gaurika", marks: 46, subject: "Science" },
+        { name: "Aman", marks: 20, subject: "Maths" },
+        { name: "Garima", marks: 59, subject: "Science" },
+        { name: "Ajuni", marks: 9, subject: "EVS" },
+        { name: "Shradha", marks: 69, subject: "Maths" },
+        { name: "Gaurav", marks: 78, subject: "Hindi" },
+        { name: "Tarang", marks: 90, subject: "Maths" },
+        { name: "Harsh", marks: 100, subject: "Hindi" },
+    ];
+
+
+    const passStudents = students.filter(students => students.marks >= 35);
+    console.log("Pass Students: ", passStudents);
+
+    const failStudents = students.filter(students => students.marks < 35);
+    console.log("Fail Students: ", failStudents);
+
+    const avgMarks = students.reduce((sum, students) => sum + students.marks, 0) / students.length;
+    console.log("Average Marks: ", avgMarks);
+
+    const topper = students.reduce((max, students) => students.marks > max.marks ? students : max);
+    console.log("Topper: ", topper);
+
+    const grpBySub = students.reduce((group, students) => {
+        if(!group[students.subject]){
+            group[students.subject] = [];
+        }
+
+        group[students.subject].push(students);
+        return group;
+    }, {});
+    console.log(grpBySub);
+
+</script>
+
+</html>
